@@ -64,7 +64,7 @@ export class AppController {
   }
 
   @Get('/api/ranking')
-  getRanking(): any {
+  getRanking(@Res() res: Response): any {
     let result;
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -72,13 +72,13 @@ export class AppController {
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error.message === 'No player found') {
-        return {
+        return res.status(404).json({
           code: 404,
           message:
             'Le classement n est pas disponible car aucun joueur n existe',
-        };
+        });
       }
     }
-    return result;
+    return res.status(200).json(result);
   }
 }

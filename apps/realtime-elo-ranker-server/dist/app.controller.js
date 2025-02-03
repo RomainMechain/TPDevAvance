@@ -64,20 +64,20 @@ let AppController = class AppController {
     getMatches() {
         return this.appService.getMatches();
     }
-    getRanking() {
+    getRanking(res) {
         let result;
         try {
             result = this.appService.getRanking();
         }
         catch (error) {
             if (error.message === 'No player found') {
-                return {
+                return res.status(404).json({
                     code: 404,
                     message: 'Le classement n est pas disponible car aucun joueur n existe',
-                };
+                });
             }
         }
-        return result;
+        return res.status(200).json(result);
     }
 };
 exports.AppController = AppController;
@@ -117,8 +117,9 @@ __decorate([
 ], AppController.prototype, "getMatches", null);
 __decorate([
     (0, common_1.Get)('/api/ranking'),
+    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], AppController.prototype, "getRanking", null);
 exports.AppController = AppController = __decorate([

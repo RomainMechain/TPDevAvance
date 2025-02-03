@@ -8,5 +8,5 @@ export declare class AppController {
     addPlayer(player: Player, res: Response): any;
     addMatch(match: Match, res: Response): any;
     getMatches(): any;
-    getRanking(): any;
+    getRanking(res: Response): any;
 }
