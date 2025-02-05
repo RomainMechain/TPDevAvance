@@ -2,7 +2,7 @@ import { Get, Res, Controller } from '@nestjs/common';
 import { Response } from 'express';
 import { RankingService } from './ranking.service';
 
-@Controller('/api/ranking')
+@Controller('api/ranking')
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 

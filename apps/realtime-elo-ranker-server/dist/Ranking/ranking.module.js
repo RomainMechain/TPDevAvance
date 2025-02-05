@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RankingModule = void 0;
 const common_1 = require("@nestjs/common");
+const ranking_controller_1 = require("./ranking.controller");
 const ranking_service_1 = require("./ranking.service");
 const player_module_1 = require("../Players/player.module");
 let RankingModule = class RankingModule {
@@ -16,8 +17,8 @@ exports.RankingModule = RankingModule;
 exports.RankingModule = RankingModule = __decorate([
     (0, common_1.Module)({
         imports: [player_module_1.PlayerModule],
+        controllers: [ranking_controller_1.RankingController],
         providers: [ranking_service_1.RankingService],
-        exports: [ranking_service_1.RankingService],
     })
 ], RankingModule);
 //# sourceMappingURL=ranking.module.js.map

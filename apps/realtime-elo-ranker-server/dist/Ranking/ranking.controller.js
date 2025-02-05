@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:returntype", Object)
 ], RankingController.prototype, "getRanking", null);
 exports.RankingController = RankingController = __decorate([
-    (0, common_1.Controller)('/api/ranking'),
+    (0, common_1.Controller)('api/ranking'),
     __metadata("design:paramtypes", [ranking_service_1.RankingService])
 ], RankingController);
 //# sourceMappingURL=ranking.controller.js.map
