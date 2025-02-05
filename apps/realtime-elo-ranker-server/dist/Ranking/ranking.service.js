@@ -9,26 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.RankingService = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+const player_service_1 = require("../Players/player.service");
+let RankingService = class RankingService {
+    constructor(playerService) {
+        this.playerService = playerService;
     }
-    getData() {
-        return this.appService.getData();
+    getRanking() {
+        const players = this.playerService.getPlayers();
+        if (players.length === 0) {
+            throw new Error('No player found');
+        }
+        return players.sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0));
     }
 };
-exports.AppController = AppController;
-__decorate([
-    (0, common_1.Get)('/data'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getData", null);
-exports.AppController = AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-//# sourceMappingURL=app.controller.js.map
+exports.RankingService = RankingService;
+exports.RankingService = RankingService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [player_service_1.PlayerService])
+], RankingService);
+//# sourceMappingURL=ranking.service.js.map
