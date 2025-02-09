@@ -13,12 +13,18 @@ const app_service_1 = require("./app.service");
 const player_module_1 = require("./Players/player.module");
 const ranking_module_1 = require("./Ranking/ranking.module");
 const match_module_1 = require("./Matchs/match.module");
+const event_emitter_1 = require("@nestjs/event-emitter");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [player_module_1.PlayerModule, ranking_module_1.RankingModule, match_module_1.MatchModule],
+        imports: [
+            player_module_1.PlayerModule,
+            ranking_module_1.RankingModule,
+            match_module_1.MatchModule,
+            event_emitter_1.EventEmitterModule.forRoot(),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

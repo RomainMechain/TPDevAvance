@@ -37,6 +37,7 @@ const poppinsSemiBold = Poppins({
  * @returns The sorted array of players
  */
 function quickSortPlayers(arr: PlayerData[]): PlayerData[] {
+  console.log("quickSortPlayers");
   if (arr.length <= 1) {
     // Already sorted
     return arr;
@@ -70,13 +71,9 @@ export default function Home() {
 
   const updateLadderData = useCallback((player: PlayerData) => {
     setLadderData((prevData) => {
+      console.log("Updating ladder data", player);
       return quickSortPlayers(
-        prevData.map((p) => {
-          if (p.id === player.id) {
-            return player;
-          }
-          return p;
-        })
+        prevData.filter((p) => p.id !== player.id).concat(player)
       );
     });
   }, []);

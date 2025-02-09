@@ -9,29 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.EventService = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-let AppController = class AppController {
-    getHello() {
-        throw new Error('Method not implemented.');
+const event_emitter_1 = require("@nestjs/event-emitter");
+let EventService = class EventService {
+    constructor() {
+        this.eventEmitter = new event_emitter_1.EventEmitter2();
     }
-    constructor(appService) {
-        this.appService = appService;
+    getEmitter() {
+        return this.eventEmitter;
     }
-    getData() {
-        return this.appService.getData();
+    emit(eventName, data) {
+        console.log('Emitting event', eventName, data);
+        this.eventEmitter.emit(eventName, data);
     }
 };
-exports.AppController = AppController;
-__decorate([
-    (0, common_1.Get)('/data'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getData", null);
-exports.AppController = AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-//# sourceMappingURL=app.controller.js.map
+exports.EventService = EventService;
+exports.EventService = EventService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [])
+], EventService);
+//# sourceMappingURL=event.service.js.map

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { RankingController } from './ranking.controller';
 import { RankingService } from './ranking.service';
-import { PlayerModule } from '../Players/player.module'; // Importez le module Player
+import { PlayerModule } from '../Players/player.module';
 
 @Module({
-  imports: [PlayerModule], // Ajoutez PlayerModule aux imports
+  imports: [PlayerModule],
   controllers: [RankingController],
   providers: [RankingService],
 })

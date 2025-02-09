@@ -1,6 +1,7 @@
-import { Get, Res, Controller } from '@nestjs/common';
+import { Get, Res, Controller, Sse } from '@nestjs/common';
 import { Response } from 'express';
 import { RankingService } from './ranking.service';
+import { Observable } from 'rxjs';
 
 @Controller('api/ranking')
 export class RankingController {
@@ -8,9 +9,9 @@ export class RankingController {
 
   @Get()
   getRanking(@Res() res: Response): any {
-    let result;
     try {
-      result = this.rankingService.getRanking();
+      const result = this.rankingService.getRanking();
+      return res.status(200).json(result);
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error.message === 'No player found') {
@@ -21,6 +22,11 @@ export class RankingController {
         });
       }
     }
-    return res.status(200).json(result);
+  }
+
+  @Sse('/events')
+  getEvents(): Observable<MessageEvent> {
+    console.log('SSE connection established');
+    return this.rankingService.getEvents();
   }
 }

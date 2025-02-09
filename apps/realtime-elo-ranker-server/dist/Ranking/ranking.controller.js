@@ -15,14 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RankingController = void 0;
 const common_1 = require("@nestjs/common");
 const ranking_service_1 = require("./ranking.service");
+const rxjs_1 = require("rxjs");
 let RankingController = class RankingController {
     constructor(rankingService) {
         this.rankingService = rankingService;
     }
     getRanking(res) {
-        let result;
         try {
-            result = this.rankingService.getRanking();
+            const result = this.rankingService.getRanking();
+            return res.status(200).json(result);
         }
         catch (error) {
             if (error.message === 'No player found') {
@@ -32,7 +33,10 @@ let RankingController = class RankingController {
                 });
             }
         }
-        return res.status(200).json(result);
+    }
+    getEvents() {
+        console.log('SSE connection established');
+        return this.rankingService.getEvents();
     }
 };
 exports.RankingController = RankingController;
@@ -43,6 +47,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], RankingController.prototype, "getRanking", null);
+__decorate([
+    (0, common_1.Sse)('/events'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", rxjs_1.Observable)
+], RankingController.prototype, "getEvents", null);
 exports.RankingController = RankingController = __decorate([
     (0, common_1.Controller)('api/ranking'),
     __metadata("design:paramtypes", [ranking_service_1.RankingService])

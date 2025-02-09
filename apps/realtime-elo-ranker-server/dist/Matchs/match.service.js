@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MatchService = void 0;
 const common_1 = require("@nestjs/common");
 const player_service_1 = require("../Players/player.service");
+const event_emitter_1 = require("@nestjs/event-emitter");
 let MatchService = class MatchService {
-    constructor(playerService) {
+    constructor(playerService, eventEmitter) {
         this.playerService = playerService;
+        this.eventEmitter = eventEmitter;
         this.matches = [];
     }
     getMatches() {
@@ -39,6 +41,8 @@ let MatchService = class MatchService {
         const probaLos = this.getProba(loser.rank ?? 0, winner.rank ?? 0);
         winner.rank = (winner.rank ?? 0) + coef * (resWin - probaWin);
         loser.rank = (loser.rank ?? 0) + coef * (resLos - probaLos);
+        this.eventEmitter.emit('rankingUpdate', winner);
+        this.eventEmitter.emit('rankingUpdate', loser);
         return {
             winner: {
                 id: winner.id,
@@ -57,6 +61,7 @@ let MatchService = class MatchService {
 exports.MatchService = MatchService;
 exports.MatchService = MatchService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [player_service_1.PlayerService])
+    __metadata("design:paramtypes", [player_service_1.PlayerService,
+        event_emitter_1.EventEmitter2])
 ], MatchService);
 //# sourceMappingURL=match.service.js.map
